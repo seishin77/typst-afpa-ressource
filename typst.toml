@@ -1,0 +1,16 @@
+[package]
+name = "afpa-ressource"
+version = "0.1.0"
+compiler = "0.15.1"
+entrypoint = "lib.typ"
+repository = "https://github.com/ludovic-esperce/typst-afpa-ressource"
+authors = ["Ludovic Esperce"]
+license = "MIT-0"
+description = "Template utilisable pour les ressources pédagogiques de l'Afpa."
+keywords = ["Formation", "Afpa", "Ressources pédagogiques"]
+categories = ["paper"]
+
+[template]
+path = "template"
+entrypoint = "main.typ"
+thumbnail = "thumbnail.png"
