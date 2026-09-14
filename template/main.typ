@@ -1,14 +1,17 @@
 #import "@local/afpa-ressource:0.1.0": afpa-ressource
+#import "@local/afpa-ressource:0.1.0": info-box
+#import "@local/afpa-ressource:0.1.0": tip-box
 
 // Déclaration des variables
-#let title = "Modèle de document interne à l'Afpa"
-#let subtitle = "Compte rendu de réunion / Ressources pédagogiques / Notes personnelles"
-#let date = datetime.today()
+#let title = "Modèle de document pédagogique Afpa"
+#let subtitle = "Ressources pédagogiques"
 #let author = "Ludovic Esperce"
+#let document-type = "Tutoriel"
 
 #show: doc => afpa-ressource(
   title: title,
   author: author,
+  document-type: document-type,
   doc
 )
 = Introduction
@@ -61,7 +64,7 @@ Avec `%AppData%` étant contenu dans le dossier utilisateur.
 
 Une fois le package dans le dossier cité précédemment, vous pourrez utiliser la commande suivante pour créer un nouveau document :
 ```bash
-typst init @local/afpa-document:0.1.0 <nom-document>
+typst init @local/afpa-ressource:0.1.0 <nom-document>
 ```
 
 Cette commande créera un nouveau dossier portant le nom du document.
@@ -102,7 +105,7 @@ Voici une liste numérotée :
 == Insertion de code
 
 Exemple de bloc de code en utilisant *\`\`\`* pour Java :
-```
+```java
 public class App {
 
   public static void main(String[] args) {
@@ -127,6 +130,32 @@ Il vous est également possible d'ajouter du code en ligne en utilisant *\`*.
 
 Par exemple, en Java il est possible déclarer une variable de type entier initialisée à 0 en utilisant le code `int uneVariable = 0`.
 
+== Encarts
+
+Ce qui suit est une boîte d'information et peut être ajoutée en utilisant le code suivant :
+
+```typst
+#info-box("Information")[
+  Test de contenu
+]
+```
+
+#info-box("Information")[
+  Test de contenu
+]
+
+
+Ce qui suit est une boîte des indices et peut être ajoutée en utilisant le code suivant :
+
+```typst
+#tip-box("Indice")[
+  Test de contenu
+]
+```
+
+#tip-box("Indice")[
+  Test de contenu
+]
 
 #pagebreak()
 
@@ -141,5 +170,3 @@ Par exemple, en Java il est possible déclarer une variable de type entier initi
 #lorem(20)
 
 #lorem(400)
-
-

@@ -17,8 +17,41 @@
   ])
 }
 
+#let flag-tag(content, fill: afpa-orange, width: 5cm, height: 1cm) = {
+  // Taille max de l'encoche du "flag"
+  let width-notch = width - height / 2
+
+  // Positionnement du tag en dehors de la marge
+  // TODO : trouver un moyen de déplacer ça de façon dynamique
+  place(
+    bottom + left,
+    dx: -2cm,
+    dy: 0.3cm,
+    box(width: width, height: height)[
+      #polygon(
+        fill: fill,
+        (0pt, 0pt),
+        (width, 0pt),
+        (width-notch, height / 2),
+        (width, height),
+        (0pt, height),
+      )
+      #place(
+        top + left,
+        dx: 0.6em,
+      )[
+        #box(height: height)[
+          #align(horizon)[
+            #text(fill: white, weight: "bold", size: 10pt)[#content]
+          ]
+        ]
+      ]
+    ]
+  )
+}
+
 // Paramétrage de la page de garde
-#let cover-page(title, author: "Afpa") = {
+#let cover-page(title, author: "Afpa", document-type: "Procédure") = {
 
   // Paramétrage du header propre à la page de garde
   set page(
@@ -35,7 +68,7 @@
         #text(26pt, fill: afpa-dark)[#upper(title)]
     ]
 
-  v(3em)
+  v(12em)
 
   // Alignement du bloc de sommaire
   align(right)[
@@ -53,13 +86,15 @@
     ]
   ]
 
+  flag-tag()[#document-type]
+
   v(1fr)
   align(right)[
-    #text(9pt, fill: afpa-dark)[© #author]
+    #text(9pt, fill: afpa-dark)[©Afpa]
   ]
 }
 
-// Sous-titre à puce orange (style "● NPM (Node Package Manager)")
+// Sous-titre à puce orange
 #let subsection(title) = {
   v(0.9em)
   block[
@@ -69,16 +104,14 @@
   v(0.4em)
 }
 
-//  Encarts (callouts)
+//  Encarts
 
 // Encart "objectif / information"
 #let info-box(title, body) = {
   block(
     width: 100%,
-    fill: afpa-gray,
     inset: 12pt,
     radius: 3pt,
-    stroke: (left: 3pt + afpa-pink),
   )[
     #grid(
       columns: (auto, 1fr),
@@ -87,7 +120,7 @@
       [
         #box(
           width: 22pt, height: 22pt,
-          fill: afpa-pink, radius: 3pt,
+          fill: afpa-pink,
         )[
           #align(center + horizon)[#text(fill: white, size: 12pt)[📖]]
         ]
@@ -106,10 +139,8 @@
 #let tip-box(title, body) = {
   block(
     width: 100%,
-    fill: afpa-gray,
     inset: 12pt,
     radius: 3pt,
-    stroke: (left: 3pt + afpa-green),
   )[
     #grid(
       columns: (auto, 1fr),
@@ -118,7 +149,7 @@
       [
         #box(
           width: 22pt, height: 22pt,
-          fill: afpa-green, radius: 3pt,
+          fill: afpa-green,
         )[
           #align(center + horizon)[#text(fill: white, size: 12pt)[💡]]
         ]
@@ -129,35 +160,6 @@
         #body
       ]
     )
-  ]
-  v(0.8em)
-}
-
-//  Bloc "terminal"
-#let term(body) = {
-  block(
-    width: 100%,
-    fill: black,
-    inset: 10pt,
-    radius: 2pt,
-  )[
-    #set text(font: "DejaVu Sans Mono", fill: rgb("#39FF14"), size: 9.5pt)
-    #body
-  ]
-  v(0.8em)
-}
-
-// Bloc de code (fond gris clair, style éditeur)
-#let code-block(body) = {
-  block(
-    width: 100%,
-    fill: afpa-gray,
-    inset: 10pt,
-    radius: 2pt,
-    stroke: 0.5pt + afpa-gray-line,
-  )[
-    #set text(font: "DejaVu Sans Mono", size: 9.5pt, fill: afpa-dark)
-    #body
   ]
   v(0.8em)
 }
@@ -193,6 +195,7 @@
 #let afpa-ressource(
   title: "Titre du document",
   author: "Afpa",
+  document-type: "Procédure",
   body,
 ) = {
   // Remplissqge des métadonnées du document
@@ -204,7 +207,7 @@
   set heading(numbering: none)
   show heading.where(level: 1): it => {
     v(0.4em)
-    block[#text(22pt, weight: "bold", fill: afpa-dark)[#it.body]]
+    block[#text(22pt, fill: afpa-orange)[#it.body]]
     v(0.3em)
     line(length: 100%, stroke: 1.5pt + afpa-orange)
     v(1em)
@@ -227,11 +230,11 @@
               #align(horizon)[
                 #pad(x: 2cm)[
                   #grid(
-                    columns: (2.2cm, auto, 1fr),
+                    columns: (auto, auto, 1fr),
                     column-gutter: 14pt,
                     align: (horizon, horizon, horizon),
                     [
-                      #text(fill: white, size: 20pt, weight: "bold")[Afpa]
+                      #image("./assets/afpa-logo-blanc.png", width: 3cm)
                     ],
                     [
                       #box(width: 1pt, height: 1.6cm, fill: white)
@@ -261,7 +264,7 @@
   )
 
   // Page de garde
-  cover-page(title, author: author)
+  cover-page(title, author: author, document-type: document-type)
   pagebreak(weak: true)
 
   // Le body passé en paramètre
