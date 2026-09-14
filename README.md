@@ -6,6 +6,9 @@ Pour apprendre les bases de la rédaction d'un document vous pouvez vous référ
 - [tutoriel officiel](https://typst.app/docs/reference/syntax/)
 - [utilisation de typst par l'exemple](https://sitandr.github.io/typst-examples-book/book/basics/tutorial/markup.html)
 
+![Apperçu du modèle](./thumbnail.png)
+
+
 # Utilisation du modèle
 
 ## Installation de typst
