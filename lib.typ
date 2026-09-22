@@ -3,6 +3,7 @@
 #let afpa-dark    = rgb("#232323")
 #let afpa-pink    = rgb("#A3145A")
 #let afpa-green   = rgb("#5A9E2F")
+#let afpa-blue    = rgb("#407EC9")
 #let afpa-gray    = rgb("#F4F4F4")
 #let afpa-gray-line = rgb("#DDDDDD")
 
@@ -200,13 +201,13 @@
       [
         #box(
           width: 22pt, height: 22pt,
-          fill: afpa-green,
+          fill: afpa-blue,
         )[
           #align(center + horizon)[#text(fill: white, size: 12pt)[📖]]
         ]
       ],
       [
-        #text(weight: "bold", fill: afpa-green, size: 12pt)[Exemple #id]
+        #text(weight: "bold", fill: afpa-blue, size: 12pt)[Exemple #id]
         #v(0.3em)
         #make-box-label(id, "ex")
         #body
