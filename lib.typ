@@ -167,7 +167,7 @@
 
 
 // util function to pad anything with n characters (padding)
-#let pad(n, width, padding) = {
+#let str-pad(n, width, padding) = {
     let s = str(n)
     padding * calc.max(0, width - s.len()) + s
 }
@@ -176,7 +176,7 @@
 // Example :
 // make-box-label(2, "Toto") creates a label named "Toto-003"
 #let make-box-label(id, prefix) = {
-    label(prefix + "-" + pad(id, 3, "0"))
+    label(prefix + "-" + str-pad(id, 3, "0"))
 }
 
 // util function to create a reference on a label created with make-box-label
