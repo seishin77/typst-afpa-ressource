@@ -164,6 +164,60 @@
   v(0.8em)
 }
 
+
+
+// util function to pad anything with n characters (padding)
+#let pad(n, width, padding) = {
+    let s = str(n)
+    padding * calc.max(0, width - s.len()) + s
+}
+
+// util function to create numbered label (=anchor)
+// Example :
+// make-box-label(2, "Toto") creates a label named "Toto-003"
+#let make-box-label(id, prefix) = {
+    label(prefix + "-" + pad(id, 3, "0"))
+}
+
+// util function to create a reference on a label created with make-box-label
+// Example :
+// `make-ref(2, "Toto")` will create a link to the anchor created with `make-box-label(2, "Toto")`
+#let make-ref(id, prefix, txt) =  {
+  link(make-box-label(id, prefix))[#txt #id]
+}
+
+// Encart "Exemple"
+#let example-box(id, body) = {
+  block(
+    width: 100%,
+    inset: 12pt,
+    radius: 3pt,
+  )[
+    #grid(
+      columns: (auto, 1fr),
+      column-gutter: 10pt,
+      align: (top, top),
+      [
+        #box(
+          width: 22pt, height: 22pt,
+          fill: afpa-green,
+        )[
+          #align(center + horizon)[#text(fill: white, size: 12pt)[📖]]
+        ]
+      ],
+      [
+        #text(weight: "bold", fill: afpa-green, size: 12pt)[Exemple #id]
+        #v(0.3em)
+        #make-box-label(id, "ex")
+        #body
+      ]
+    )
+  ]
+  v(0.8em)
+}
+
+
+
 //  Page de crédits — insérée automatiquement en fin de document
 #let credits-page() = {
   pagebreak(weak: true)
